@@ -15,8 +15,7 @@ app.get('/test', async (req, res) => {
 });
 
 app.get('/callback', async (req, res) => {
-	const { code, state } = req.query;
-	console.log({code, state});
+	const { code } = req.query;
 
 	try {
 		const params = new URLSearchParams();
@@ -29,10 +28,10 @@ app.get('/callback', async (req, res) => {
 				Host: 'login.eveonline.com'
 			}
 		});
-		// const accessToken = result.access_token;
+		const accessToken = result.access_token;
 		console.log({result});
-	
-		res.json({done: true});
+
+		res.json({accessToken});
 	} catch (reason) {
 		res.json({reason});
 	}
