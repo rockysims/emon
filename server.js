@@ -13,6 +13,10 @@ app.get('/test', async (req, res) => {
 	res.json({test: true});
 });
 
+app.get('/callback', async (req, res) => {
+	res.json({ok: true});
+});
+
 //---
 
 const port = process.env.PORT || 5000;
