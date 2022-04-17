@@ -24,8 +24,8 @@ app.get('/callback', async (req, res) => {
 			code
 		})).toString();
 		const result = await axios.post(`https://login.eveonline.com/v2/oauth/token?${encodedData}`, {
-			// grant_type: 'authorization_code',
-			// code
+			grant_type: 'authorization_code',
+			code
 		}, {
 			headers: {
 				Authorization: `Basic ${Buffer.from(`${process.env.SSO_CLIENT_ID}:${process.env.SSO_SECRET_KEY}`).toString('base64')}`,
