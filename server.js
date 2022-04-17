@@ -19,14 +19,10 @@ app.get('/callback', async (req, res) => {
 	console.log({code, state});
 
 	try {
-		const encodedData = new URLSearchParams(Object.entries({
-			grant_type: 'authorization_code',
-			code
-		})).toString();
-		const result = await axios.post(`https://login.eveonline.com/v2/oauth/token?${encodedData}`, {
-			grant_type: 'authorization_code',
-			code
-		}, {
+		const params = new URLSearchParams();
+		params.append('grant_type', 'authorization_code');
+		params.append('code', code);
+		const result = await axios.post(`https://login.eveonline.com/v2/oauth/token`, params, {
 			headers: {
 				Authorization: `Basic ${Buffer.from(`${process.env.SSO_CLIENT_ID}:${process.env.SSO_SECRET_KEY}`).toString('base64')}`,
 				'Content-Type': 'application/x-www-form-urlencoded',
