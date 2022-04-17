@@ -24,7 +24,7 @@ app.get('/callback', async (req, res) => {
 			code
 		}, {
 			headers: {
-				Authorization: `basic ${btoa(`${process.env.SSO_CLIENT_ID}:${process.env.SSO_SECRET_KEY}`)}`,
+				Authorization: `Basic ${btoa(`${process.env.SSO_CLIENT_ID}:${process.env.SSO_SECRET_KEY}`)}`,
 				'Content-Type': 'application/json'
 			}
 		});
