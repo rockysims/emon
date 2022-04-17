@@ -18,20 +18,23 @@ app.get('/callback', async (req, res) => {
 	const { code, state } = req.query;
 	console.log({code, state});
 
-	const result = await axios.post(`https://login.eveonline.com/v2/oauth/token`, {
-		grant_type: 'authorization_code',
-		code
-	}, {
-		headers: {
-			Authorization: 'basic',
-			'content-type': 'application/json'
-		}
-	});
-	const accessToken = result.access_token;
-	console.log({accessToken, result});
-
-	// res.json(result);
-	res.json({done: true});
+	try {
+		const result = await axios.post(`https://login.eveonline.com/v2/oauth/token`, {
+			grant_type: 'authorization_code',
+			code
+		}, {
+			headers: {
+				Authorization: 'basic',
+				'Content-Type': 'application/json'
+			}
+		});
+		// const accessToken = result.access_token;
+		console.log({result});
+	
+		res.json({done: true});
+	} catch (reason) {
+		res.json({reason});
+	}
 });
 
 //---
