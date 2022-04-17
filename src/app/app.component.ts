@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { query } from 'express';
 import { catchError, Observable, of, tap } from 'rxjs';
 
 interface Data {
@@ -20,10 +21,20 @@ interface Transaction {
 })
 export class AppComponent {
 	title = 'eMon';
+	loginUrl = '';
 
 	constructor (
 		private http: HttpClient
 	) {
+		const queryParams = [
+			'response_type=code',
+			`redirect_uri=${encodeURIComponent('https://e-mon-app.herokuapp.com/callback')}`,
+			'client_id=14f1fb208e0b4a6791ac8b11915a4083',
+			`scope=${encodeURIComponent('esi-wallet.read_character_wallet.v1 esi-contracts.read_character_contracts.v1')}`,
+			'state=extraSecurity123'
+		];
+		this.loginUrl = 'https://login.eveonline.com/v2/oauth/authorize?' + queryParams.join('&');
+		
 		this.getData().subscribe(v => console.log(v));
 		// this.getTransactions().subscribe(v => console.log(v));
 	}

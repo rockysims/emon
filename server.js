@@ -1,4 +1,5 @@
 require('dotenv').config();
+const axios = require('axios');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -14,7 +15,13 @@ app.get('/test', async (req, res) => {
 });
 
 app.get('/callback', async (req, res) => {
-	res.json({ok: true});
+	const { code, state } = req.query;
+	console.log({code, state});
+
+	const result = await axios.post(`https://login.eveonline.com/v2/oauth/token`, {code});
+	console.log({result});
+
+	res.json(result);
 });
 
 //---
