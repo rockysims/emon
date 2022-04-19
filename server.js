@@ -28,7 +28,7 @@ app.get('/callback', async (req, res) => {
 				Host: 'login.eveonline.com'
 			}
 		});
-		const accessToken = result.access_token;
+		const accessToken = result.data.access_token;
 		console.log({result});
 
 		res.json({accessToken});
